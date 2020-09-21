@@ -1,0 +1,12 @@
+.container{
+	width: 100vw;
+	height: calc(100vh - 100px);
+	display: grid;
+	grid-template-areas: 'filter'
+						 'moviesList';
+
+	grid-template-rows: 150px 1fr;
+	grid-auto-columns:	1fr 1fr;
+	background-color: #2b3035;
+	font-family: Verdana, Arial, sans-serif;
+}

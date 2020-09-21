@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    color: #f5deb3;
+    border: 2px solid  #f5deb3;
+    margin: auto;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 16px;
+    align-items: center;
+}
+
+.container img{
+    margin: 15px;
+}
+
+.actorName{
+    font-weight: bold;
+    margin: 10px;
+}
+
+
+
+.biography{
+    margin: 20px;
+
+}
+

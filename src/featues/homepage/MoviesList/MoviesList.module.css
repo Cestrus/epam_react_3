@@ -1,0 +1,10 @@
+.container--moviesList{
+	grid-area: moviesList;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	color: #f5deb3;
+	overflow: auto;
+	flex-wrap: wrap;
+	justify-content: center;
+}

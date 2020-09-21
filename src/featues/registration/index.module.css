@@ -1,0 +1,37 @@
+/* .form--reg{
+    display:flex;
+    flex-direction: column;
+    width: 600px;
+    height: 300px;
+    border: 2px solid  #f5deb3;
+    box-sizing: border-box;
+	margin: auto;
+	align-items: center;
+	box-shadow: 0 0 5px 1px #f5deb3;
+} */
+
+.container--login{
+    display:flex;
+    flex-direction: column;
+    width: 600px;
+    height: 300px;
+    border: 2px solid  #f5deb3;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 100px; 
+    align-items: center;
+}
+.container--login h4{
+    font-size: 20px;
+    color:  #f5deb3;
+    text-align: center;
+    font-family: Verdana, Arial, sans-serif;
+    height: 50px;
+    line-height: 50px;
+}
+
+.container--login button{
+    display: block;
+    width: 130px;
+    margin: 30px auto;
+}

@@ -1,0 +1,11 @@
+.actor{
+    display: inline-block;
+    margin: 0 5px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.actor:hover{
+    cursor: pointer;
+    text-shadow: 0 0 20px #f5deb3;
+}

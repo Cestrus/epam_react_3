@@ -1,0 +1,38 @@
+.container--movieInfo{
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	color: #f5deb3;
+	border: 2px solid  #f5deb3;
+	margin: auto;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14px;
+}
+
+.movieImg, .movieTitle, .movieLikesStars, .movieDirector, .movieActors, .movieGenres, .movieDescription{
+	margin: 10px;
+	align-items: center;
+}
+
+.movieImg{
+	align-self: center;
+}
+
+.movieTitle{
+	align-self: center;
+	font-weight: bold;
+}
+
+.movieLikes{
+	display: inline-block;
+	margin-right: 20px;
+}
+.controlBtn{
+	display: flex;
+	justify-content: center;
+}
+.btnEdit, .btnDelete{
+	width: 70px;
+	height: 20px;	
+	margin: 10px;	
+}

@@ -1,0 +1,38 @@
+.header{
+    display: flex;
+    height: 100px;
+    background-color: #2b3035;
+    font-family: Verdana, Arial, sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+	font-size: 25px;
+	font-family: Verdana, Arial, sans-serif;
+	font-weight: bold;
+    color: #f5deb3;
+
+}
+.logOut{
+    position: absolute;
+    right: 50px;
+    font-size: 14px;
+    color:  #f5deb3;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.btn--logOut{
+    height: 30px;
+    width: 80px;
+    align-self: center;
+    margin-left: 30px;
+}
+
+.unhide{
+    visibility: visible;
+}
+
+.hide{
+    visibility: hidden;
+}
