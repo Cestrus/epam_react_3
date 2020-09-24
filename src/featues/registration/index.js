@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from './index.module.css';
 import Input from '../../components/Input/Input.js';
 import { withRouter } from 'react-router-dom';
+import axios from '../../axios/baseURL.js';
 
 
 class Registration extends Component{
@@ -10,11 +11,17 @@ class Registration extends Component{
         this.props = props;
     }
 
-    submitHandler(ev, props){
+    submitHandler(ev){
         ev.preventDefault();
         const login = document.getElementsByName('inp-login-enter')[0].value;
-        const pass = document.getElementsByName('inp-password-enter')[0].value; 
-        props.setLogPass(login, pass);
+        const password = document.getElementsByName('inp-password-enter')[0].value;
+        const user = {name:login, password};
+        try{
+            axios.post('/users', user);
+        } catch (e){
+            console.log('ERROR', e);
+        }
+        this.props.setUser(true, login);
     }
 
     render(){

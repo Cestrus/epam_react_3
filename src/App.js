@@ -11,8 +11,8 @@ import EditMovie from './featues/editMovie';
 import Login from './featues/login';
 import Registration from './featues/registration';
 
-import { checkLogPass, setLogPass, logOutHandler, deleteMovie, findMovie, editMovie,
-  sortByRating, sortByLikes,  searchMovie, changeStars, changeLikes, findActors, onChooseActor} from './store/actions/appActions'
+import { checkUser, setUser, logOutHandler, loadingMovies, deleteMovie, chooseMovie, editMovie,
+  sortByRating, sortByLikes,  searchMovie, changeStars, changeLikes, findActors, chooseActor} from './store/actions/appActions'
 
 
 class App extends Component {
@@ -21,18 +21,18 @@ class App extends Component {
         return (
             <>
                 <Header logOutHandler = {this.props.logOutHandler}
-                        userLogin = {this.props.userLogin}
+                        userName = {this.props.userName}
                         isLogin = {this.props.isLogin}/>
                 <Switch>
                     <Route path={'/'} exact render = {() => (
-                        <Login 
-                            checkLogPass = {this.props.checkLogPass}
+                        <Login
+                            checkUser = {this.props.checkUser}
                             isLogin = {this.props.isLogin}
                         />)}
                     />
                     <Route path={'/registration'} exact render = {() => (
                         <Registration
-                            setLogPass = {this.props.setLogPass}
+                            setUser = {this.props.setUser}
                             isLogin = {this.props.isLogin}
                         />)}
                     />           
@@ -45,25 +45,28 @@ class App extends Component {
                             searchMovie = {this.props.searchMovie}
                             changeStars = {this.props.changeStars}
                             changeLikes = {this.props.changeLikes}
-                            findMovie = {this.props.findMovie}
-                            findActors = {this.props.findActors}
+                            chooseMovie = {this.props.chooseMovie}
+                            loadingMovies = {this.props.loadingMovies}
+                            isLoading = {this.props.isLoading}
                         />)}              
                     />
                     <Route path={'/movies/:id'} exact render={() => (
                         <MovieInfo 
                             chosenMovie = {this.props.chosenMovie}
                             deleteMovie = {this.props.deleteMovie}
-                            actorsDB = {this.props.actorsDB}
-                            onChooseActor = {this.props.onChooseActor}
+                            moviesList = {this.props.moviesList}
+                            chooseActor = {this.props.chooseActor}
                             changeStars = {this.props.changeStars}
                             actorsStore = {this.props.actorsStore}
                             editMovie = {this.props.editMovie}
+                            findActors = {this.props.findActors}
                         />
                     )} />
                     <Route path={'/edit/'} exact render={() =>(
                         <EditMovie
                             chosenMovie = {this.props.chosenMovie}
                             editMovie = {this.props.editMovie}
+                            moviesList = {this.props.moviesList}
                         />
                     )}/>
                     <Route path={'/actor/:name'} exact render={() => (
@@ -75,40 +78,37 @@ class App extends Component {
           </>
         );
     }
-  
 }
 
 function mapStateToProps(state){
   return{
-    moviesDB: state.appReducer.moviesDB,
-    actorsDB: state.appReducer.actorsDB,    
-    moviesList: state.appReducer.moviesList,
     isLogin: state.appReducer.isLogin,
-    userLogin: state.appReducer.userLogin,
+    userName: state.appReducer.userName,
+    moviesList: state.appReducer.moviesList,
     chosenMovie: state.appReducer.chosenMovie,
     actorsStore: state.appReducer.actorsStore,
     chosenActor: state.appReducer.chosenActor,
+    isLoading: state.appReducer.isLoading,
   }
 }
 
 function mapDispatchToProps(dispatch){
   return{
-    checkLogPass: (login, pass) => dispatch(checkLogPass(login, pass)),
-    setLogPass: (login, pass) => dispatch(setLogPass(login, pass)),
+    checkUser: (login, pass) => dispatch(checkUser(login, pass)),
+    setUser: (login, pass) => dispatch(setUser(login, pass)),
     logOutHandler: () => dispatch(logOutHandler()),
+    loadingMovies: (moviesList, loading) => dispatch(loadingMovies(moviesList, loading)),
     deleteMovie: (movieID) => dispatch(deleteMovie(movieID)),
-    sortByRating: () => dispatch(sortByRating()),
-    sortByLikes: () => dispatch(sortByLikes()),
+    sortByRating: (moviesList) => dispatch(sortByRating(moviesList)),
+    sortByLikes: (moviesList) => dispatch(sortByLikes(moviesList)),
     searchMovie: (styleName) => dispatch(searchMovie(styleName)),
     changeStars: (idStar, idMovies) => dispatch(changeStars(idStar, idMovies)),
     changeLikes: (idMovies, isLike) => dispatch(changeLikes(idMovies, isLike)),
-    findMovie: (movieId) => dispatch(findMovie(movieId)),
-    findActors: () => dispatch(findActors()),
-    onChooseActor: (actor) => dispatch(onChooseActor(actor)),
-    editMovie: (movie) => dispatch(editMovie(movie)),
+    chooseMovie: (movieId) => dispatch(chooseMovie(movieId)),
+    findActors: (actorsStore) => dispatch(findActors(actorsStore)),
+    chooseActor: (actor) => dispatch(chooseActor(actor)),
+    editMovie: (chosenMovie, moviesList) => dispatch(editMovie(chosenMovie, moviesList)),
   }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

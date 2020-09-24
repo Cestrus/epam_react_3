@@ -12,8 +12,9 @@ const MoviesList = props =>{
 							   movie = {movie}
 					           changeStars = {props.changeStars}
 					           changeLikes = {props.changeLikes}
-					           findMovie = {props.findMovie}
-					           findActors = {props.findActors}
+					           chooseMovie = {props.chooseMovie}
+					           moviesList = {props.moviesList}
+					           chosenMovie={props.chosenMovie}
 					/>
 				);
 			})}

@@ -1,11 +1,8 @@
-import {actorsDB} from "../../utils/actorsDB.js";
-import {moviesDB} from "../../utils/moviesDB.js";
-
-import { 
-        CHECK_LOG_PASS,
-        SET_LOG_PASS,
+import {
+        CHECK_USER,
+        SET_USER,
         LOG_OUT,
-        FIND_MOVIE,
+		CHOOSE_MOVIE,
         DELETE_MOVIE,
         SORT_BY_RATING, 
 		SORT_BY_LIKES, 
@@ -15,48 +12,54 @@ import {
         FIND_ACTORS,
 		CHOOSE_ACTOR,
 		EDIT_MOVIE,
+		LOAD_MOVIES,
+
         } from '../actions/actionTypes.js';
 
 export const initialState = {
-	moviesDB,
-	actorsDB,
-	moviesList: [...moviesDB],
+	moviesList: null,
     chosenMovie: null,
-    userLogin: null,
+    userName: null,
     isLogin: null,
 	actorsStore: [],
 	chosenActor: null,
+	isLoading: true,
 }
 
 
 export const appReducer = (state = initialState, action) => {
     switch(action.type){
-        case CHECK_LOG_PASS:
+        case CHECK_USER:
             return{
                 ...state, 
                 isLogin: action.isLogin,
-                userLogin: action.userLogin,
+                userName: action.userName,
             }
-        case SET_LOG_PASS:
+        case SET_USER:
             return{
                 ...state, 
                 isLogin: action.isLogin,
-                userLogin: action.userLogin,
+                userName: action.userName,
 
             }
         case LOG_OUT:
             return{
                 ...state, 
                 isLogin: action.isLogin,
-                userLogin: action.userLogin,
+                userName: action.userName,
+            }
+        case LOAD_MOVIES:
+            return{
+                ...state,
+                moviesList: [...action.moviesList],
+	            isLoading: action.isLoading,
             }
         case DELETE_MOVIE:
             return{
                 ...state,
-                moviesDB: action.moviesDB,
                 moviesList: action.moviesList,
-            }    
-        case FIND_MOVIE:
+            }
+        case CHOOSE_MOVIE:
             return{
                 ...state,
                 chosenMovie: action.chosenMovie, 
@@ -81,7 +84,6 @@ export const appReducer = (state = initialState, action) => {
 			return {
 				...state,
 				moviesList: action.moviesList,
-                chosenMovie: action.chosenMovie,
 			}
 		case CHANGE_LIKES:
 			return {

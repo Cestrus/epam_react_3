@@ -3,8 +3,9 @@ import styles from './Stars.module.css';
 
 
 const Stars = props => {
-	let stars = props.stars;
+	let stars = props.movie.stars;
 	let starsIDArr = ['1_starID', '2_starID', '3_starID', '4_starID', '5_starID'];
+
 	const renderStar = () => {
 		if(stars){
 			--stars;
@@ -14,15 +15,20 @@ const Stars = props => {
 		}
 	}
 
+	const changeStars = (id) => {
+		props.movie.stars = parseInt(id);
+		props.changeStars([...props.moviesList]);
+	}
+
 	return (
 		<div className={styles.movieStars}>
 			{starsIDArr.map(id => {
 				return(
 					<div key={id}
-						 className={renderStar()}
-						 onClick={() => props.changeStars(id, props.idMovies)}
+					     className={renderStar()}
+					     onClick={() => changeStars(id, props.idMovies)}
 					/>
-			    )
+				)
 			})}
 		</div>
 	)

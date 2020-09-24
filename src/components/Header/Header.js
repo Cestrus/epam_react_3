@@ -15,7 +15,7 @@ const Header = (props) => {
         <div className = {styles.header}>
             <Link to={{pathname: '/'}}><h2 className = {styles.title}>Movies site</h2></Link>
             <div className={classes.join(' ')}>
-                <span>{props.userLogin}</span>
+                <span>{props.userName}</span>
                 <button className = {styles['btn--logOut']}
                     onClick = { () => {
                         props.logOutHandler();

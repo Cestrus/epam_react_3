@@ -2,21 +2,44 @@ import React, { Component } from "react";
 import styles from './index.module.css';
 import { Link, withRouter } from 'react-router-dom';
 import Input from '../../components/Input/Input.js';
+import axios from '../../axios/baseURL.js';
 
 
 class Login extends Component {
     constructor(props){
         super(props)
         this.props = props;
+        this.users = [];
     }
 
-    submitHandler(ev, props){       
+    submitHandler(ev){
         ev.preventDefault();
         const login = document.getElementsByName('inp-login-enter')[0].value;
-        const pass = document.getElementsByName('inp-password-enter')[0].value;        
-        props.checkLogPass(login, pass);
+        const password = document.getElementsByName('inp-password-enter')[0].value;
+        this.checkLogPass(login, password);
     }
-    
+
+    checkLogPass(login, password) {
+        let isLogin = false;
+        let userName = null;
+        this.users.forEach(user => {
+            if(user.name === login && user.password === password){
+                isLogin = true;
+                userName = user.name;
+            }
+        });
+        this.props.checkUser(isLogin, userName);
+    }
+
+    async componentDidMount(){
+        try {
+            const response = await axios.get(`/users`);
+            this.users = response.data;
+        } catch (e) {
+            console.log('ERROR: ', e);
+        }
+    }
+
     render(){
         const classes = [styles.notFoundUser];
         if(this.props.isLogin === false){
@@ -38,7 +61,7 @@ class Login extends Component {
                     />
                     <button 
                         onClick = {async (ev) => {
-                            await this.submitHandler(ev, this.props);
+                            await this.submitHandler(ev);
                             if(this.props.isLogin) this.props.history.push('/movies/');
                     }}>
                         Login
