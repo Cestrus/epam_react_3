@@ -60,17 +60,17 @@ class Filter extends Component{
 	render(){
 		return (
 			<div className={styles['container--filter']}>
-				<h5 className={styles['title--filter']}>Sort movies</h5>
+				<h5 className={styles['title--filter']}>{this.props.translation["homepage-sort-title"]}</h5>
 				<div>
 					<button className={styles.btn + ' ' + styles['btn__sort']}
 					        onClick={() => this.sortByLikes()}
 					>
-						by likes
+						{this.props.translation["homepage-btnSortByLike"]}
 					</button>
 					<button className={styles.btn + ' ' + styles['btn__sort']}
 					        onClick={() => this.sortByRating()}
 					>
-						by rating
+						{this.props.translation["homepage-btnSortByRating"]}
 					</button>
 				</div>
 				<div className={styles.search}>
@@ -78,15 +78,13 @@ class Filter extends Component{
 					         onClick={() => this.searchMovie(styles['inp__search'])}
 					/>
 					<input className={styles.inp + ' ' + styles['inp__search']}
-					       placeholder={'Search by name'}
+					       placeholder={this.props.translation['homepage-inpSearch']}
 					/>
 				</div>
 			</div>
 		);
 	}
 }
-
-
 
 
 export default Filter;

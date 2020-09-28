@@ -12,4 +12,6 @@ export const FIND_ACTORS = 'FIND_ACTORS';
 export const CHOOSE_ACTOR = 'CHOOSE_ACTOR';
 export const EDIT_MOVIE = 'EDIT_MOVIE';
 export const LOAD_MOVIES = 'LOAD_MOVIES';
+export const CHOOSE_LANG = 'CHOOSE_LANG';
+export const CHOOSE_MOVIE_FORM = 'CHOOSE_MOVIE_FORM';
 

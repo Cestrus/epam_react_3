@@ -4,7 +4,7 @@ import Filter from "./Filter/Filter.js";
 import MoviesList from "./MoviesList/MoviesList.js";
 import axios from "../../axios/baseURL.js";
 import Loader from "../../components/Loader/Loader";
-
+import withTranslation from '../../hocs/withTranslation';
 
 class Homepage extends Component{
 	constructor(props) {
@@ -23,12 +23,14 @@ class Homepage extends Component{
 	}
 
 	render() {
+		const TranslateFilter = withTranslation(Filter);
+
 		return (
 			<div className={styles.container}>
-				<Filter sortByRating={this.props.sortByRating}
-				        sortByLikes={this.props.sortByLikes}
-				        searchMovie={this.props.searchMovie}
-				        moviesList={this.props.moviesList}
+				<TranslateFilter sortByRating={this.props.sortByRating}
+								        sortByLikes={this.props.sortByLikes}
+								        searchMovie={this.props.searchMovie}
+								        moviesList={this.props.moviesList}
 				/>
 				{
 					this.props.isLoading
@@ -38,6 +40,8 @@ class Homepage extends Component{
 				            changeLikes={this.props.changeLikes}
 				            chosenMovie={this.props.chosenMovie}
 				            chooseMovie={this.props.chooseMovie}
+				            findActors = {this.props.findActors}
+				            chooseMovieForm = {this.props.chooseMovieForm}
 					  />
 				}
 			</div>

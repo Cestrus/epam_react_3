@@ -10,30 +10,43 @@ import MovieInfo from './featues/movieInfo';
 import EditMovie from './featues/editMovie';
 import Login from './featues/login';
 import Registration from './featues/registration';
+import withTranslation from './hocs/withTranslation';
+import PrivateRoute from "./hocs/privateRoute";//
+
 
 import { checkUser, setUser, logOutHandler, loadingMovies, deleteMovie, chooseMovie, editMovie,
-  sortByRating, sortByLikes,  searchMovie, changeStars, changeLikes, findActors, chooseActor} from './store/actions/appActions'
+  sortByRating, sortByLikes,  searchMovie, changeStars, changeLikes, findActors, chooseActor, langHandler} from './store/actions/appActions'
+
+import { chooseMovieForm } from './store/actions/formActions'
 
 
 class App extends Component {
 
     render(){
+        const TranslateLogin = withTranslation(Login);
+        const TranslateRegistration = withTranslation(Registration);
+        const TranslateEditMovie = withTranslation(EditMovie);
+        const TranslateMovieInfo = withTranslation(MovieInfo);
+
         return (
             <>
                 <Header logOutHandler = {this.props.logOutHandler}
                         userName = {this.props.userName}
-                        isLogin = {this.props.isLogin}/>
+                        isLogin = {this.props.isLogin}
+                        langHandler = {this.props.langHandler}/>
                 <Switch>
-                    <Route path={'/'} exact render = {() => (
-                        <Login
+                    <Route path={'/login'} exact render = {() => (
+                        <TranslateLogin
                             checkUser = {this.props.checkUser}
                             isLogin = {this.props.isLogin}
+                            language = {this.props.language}
                         />)}
                     />
                     <Route path={'/registration'} exact render = {() => (
-                        <Registration
+                        <TranslateRegistration
                             setUser = {this.props.setUser}
                             isLogin = {this.props.isLogin}
+                            language = {this.props.language}
                         />)}
                     />           
                     <Route path={'/movies'} exact render = {() => (
@@ -48,10 +61,12 @@ class App extends Component {
                             chooseMovie = {this.props.chooseMovie}
                             loadingMovies = {this.props.loadingMovies}
                             isLoading = {this.props.isLoading}
+                            findActors = {this.props.findActors}
+                            chooseMovieForm = {this.props.chooseMovieForm}
                         />)}              
                     />
                     <Route path={'/movies/:id'} exact render={() => (
-                        <MovieInfo 
+                        <TranslateMovieInfo
                             chosenMovie = {this.props.chosenMovie}
                             deleteMovie = {this.props.deleteMovie}
                             moviesList = {this.props.moviesList}
@@ -59,21 +74,23 @@ class App extends Component {
                             changeStars = {this.props.changeStars}
                             actorsStore = {this.props.actorsStore}
                             editMovie = {this.props.editMovie}
-                            findActors = {this.props.findActors}
+                            language = {this.props.language}
                         />
                     )} />
                     <Route path={'/edit/'} exact render={() =>(
-                        <EditMovie
+                        <TranslateEditMovie
                             chosenMovie = {this.props.chosenMovie}
                             editMovie = {this.props.editMovie}
                             moviesList = {this.props.moviesList}
+                            language = {this.props.language}
+                            chosenMovieForm = {this.props.chosenMovieForm}
                         />
                     )}/>
                     <Route path={'/actor/:name'} exact render={() => (
                         <ActorInfo chosenActor = {this.props.chosenActor}/>
                     )}/>
 
-                    <Redirect to = {'/'}/>
+                    <Redirect from = {'/'} to = {'/login'}/>
                 </Switch>
           </>
         );
@@ -89,6 +106,8 @@ function mapStateToProps(state){
     actorsStore: state.appReducer.actorsStore,
     chosenActor: state.appReducer.chosenActor,
     isLoading: state.appReducer.isLoading,
+    language: state.appReducer.language,
+    chosenMovieForm: state.formReducer.chosenMovie,
   }
 }
 
@@ -108,6 +127,8 @@ function mapDispatchToProps(dispatch){
     findActors: (actorsStore) => dispatch(findActors(actorsStore)),
     chooseActor: (actor) => dispatch(chooseActor(actor)),
     editMovie: (chosenMovie, moviesList) => dispatch(editMovie(chosenMovie, moviesList)),
+    langHandler: (lang) => dispatch(langHandler(lang)),
+    chooseMovieForm: (movieId) => dispatch(chooseMovieForm(movieId))
   }
 }
 

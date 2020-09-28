@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import styles from './index.module.css';
-import Input from '../../components/Input/Input.js';
-import { withRouter } from 'react-router-dom';
-
-
+import {reduxForm, Field} from "redux-form";
 
 class EditMovie extends Component{
     constructor(props) {
         super(props);
+        this.props = props;
     }
 
     editMovie(){
@@ -28,55 +26,73 @@ class EditMovie extends Component{
         });
         moviesList.splice(indx, 1, chosenMovie);
         this.props.editMovie(chosenMovie, moviesList);
+
+        console.log('choosenMovie', this.props.chosenMovie)
     }
 
     render(){
+        console.log('render choosenMovie', this.props.chosenMovie)
         return(
-            <div className={styles['container--editForm']}>
-                <form className={styles['form--edit']}>
-                    <Input
-                        type={'text'}
-                        label={'Title'}
-                        name={'inp-title-edit'}
-                        value={this.props.chosenMovie.title}
-                    />
-                    <Input
-                        type={'text'}
-                        label={'Image URL'}
-                        name={'inp-posterUrl-edit'}
-                        value={this.props.chosenMovie.posterUrl}
-                    />
-                    <Input
-                        type={'text'}
-                        label={'Director'}
-                        name={'inp-director-edit'}
-                        value={this.props.chosenMovie.director}
-                    />
-                    <Input
-                        type={'text'}
-                        label={'Genres'}
-                        name={'inp-genres-edit'}
-                        value={this.props.chosenMovie.genres}
-                    />
+          <div className={styles['container--editForm']}>
+               <form onSubmit={this.editMovie.bind(this)}>
                     <div>
-                        <label>Description</label>
-                        <textarea
-                            name={'description-edit'}
-                            defaultValue={this.props.chosenMovie.description}
+                        <label>{this.props.translation["editMovie-inpLable-title"]}</label>
+                        <Field
+                          component= "input"
+                          type={'text'}
+                          name={'inp-title-edit'}
+                          value={this.props.chosenMovie.title}
+                        />
+                    </div>
+                    <div>
+                        <label>{this.props.translation["editMovie-inpLable-imgURL"]}</label>
+                        <Field
+                          component="input"
+                          type={'text'}
+                          name={'inp-posterUrl-edit'}
+                          value={this.props.chosenMovie.posterUrl}
+                        />
+                    </div>
+                    <div>
+                        <label>{this.props.translation["editMovie-inpLable-director"]}</label>
+                        <Field
+                          component="input"
+                          type={'text'}
+                          name={'inp-director-edit'}
+                          value={this.props.chosenMovie.director}
+                        />
+                    </div>
+                    <div>
+                        <label>{this.props.translation["editMovie-inpLable-genres"]}</label>
+                        <Field
+                          component="input"
+                          type={'text'}
+                          name={'inp-genres-edit'}
+                          value={this.props.chosenMovie.genres}
+                        />
+                    </div>
+                    <div>
+                        <label>{this.props.translation["editMovie-areaLable"]}</label>
+                        <Field
+                          component="textarea"
+                          type={'textarea'}
+                          name={'description-edit'}
+                          value={this.props.chosenMovie.description}
                         />
                     </div>
                     <button
-                        onClick={() => {
-                            this.editMovie();
-                            this.props.history.push('/movies/' + this.props.chosenMovie.id);
-                        }}>
-                        Send data
+                      type={"submit"}
+                    >
+                        {this.props.translation["editMovie-btnSubmit"]}
                     </button>
                 </form>
-            </div>
+          </div>
         )
     }
 }
 
 
-export default withRouter(EditMovie);
+export default reduxForm({
+    form: 'editMovie-form',
+})(EditMovie);
+

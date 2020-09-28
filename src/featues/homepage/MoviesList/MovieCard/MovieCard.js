@@ -2,11 +2,14 @@ import React, {Component} from "react";
 import styles from './MovieCard.module.css';
 import { withRouter } from "react-router-dom";
 import Stars from "../../../../components/Stars/Stars.js";
+import axios from "../../../../axios/baseURL";
 
 
 class MovieCard extends Component{
 	constructor(props) {
 		super(props);
+
+		this.actorsStore = null
 	}
 
 	changeLikes(id, like){
@@ -24,7 +27,23 @@ class MovieCard extends Component{
 				chosenMovie = movie;
 			}
 		});
+		this.loadActors(chosenMovie.actorsIds);
 		this.props.chooseMovie(chosenMovie);
+		this.props.chooseMovieForm(chosenMovie);
+	}
+
+	async loadActors(actorsIds){
+		this.actorsStore = [];
+
+		for(let i=0; i<actorsIds.length; i++){
+			try{
+				const response = await axios.get(`/actors/${actorsIds[i]}`);
+				this.actorsStore.push(response.data);
+			} catch (e) {
+				console.log('ERROR', e);
+			}
+		}
+		this.props.findActors(this.actorsStore);
 	}
 
 	render(){

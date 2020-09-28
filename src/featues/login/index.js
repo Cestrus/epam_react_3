@@ -35,6 +35,7 @@ class Login extends Component {
         try {
             const response = await axios.get(`/users`);
             this.users = response.data;
+            if(this.props.isLogin) this.props.history.push('/movies/');
         } catch (e) {
             console.log('ERROR: ', e);
         }
@@ -47,28 +48,27 @@ class Login extends Component {
         }
         return (
             <div className={styles['container--login']}>
-                <h4>Please login</h4>
+                <h4>{this.props.translation['login-title']}</h4>
                 <form className = {styles['form--login']}>
                     <Input 
                         type = {'text'}
-                        placeholder = {'Login'}
+                        placeholder = {this.props.translation['login-inpPlaceholder-login']}
                         name = {'inp-login-enter'}
                     />
                     <Input 
                         type = {'text'}
-                        placeholder = {'Password'}
+                        placeholder = {this.props.translation['login-inpPlaceholder-pass']}
                         name = {'inp-password-enter'}
                     />
                     <button 
                         onClick = {async (ev) => {
                             await this.submitHandler(ev);
-                            if(this.props.isLogin) this.props.history.push('/movies/');
                     }}>
-                        Login
+                        {this.props.translation['login-btn']}
                     </button>                        
                 </form>
-                <span className = {classes.join(' ')}>Did not found user. Retry login and password.</span>
-                <p>Dont have account? <Link to={'/registration'}>Go to registration</Link></p>
+                <span className = {classes.join(' ')}>{this.props.translation['login-userless']}</span>
+                <p>{this.props.translation['login-questionToReg']}<Link to={'/registration'}>{this.props.translation['login-toReg']}</Link></p>
             </div>        
         )
     }       

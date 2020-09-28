@@ -1,0 +1,11 @@
+.lang{
+    color:  #f5deb3;
+    align-self: center;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12px;
+    border: 1px solid #f5deb3;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 5px;
+}

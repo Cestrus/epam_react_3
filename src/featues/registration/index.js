@@ -27,18 +27,18 @@ class Registration extends Component{
     render(){
         return (
             <div className={styles['container--login']}>
-                <h4>Registration</h4>
+                <h4>{this.props.translation["registration-title"]}</h4>
                 <form className = {styles['form--login']}>
                     <Input 
                         type = {'text'}
-                        label = {'Input login'}
-                        placeholder = {'Login'}
+                        label = {this.props.translation["registration-inpLable-login"]}
+                        placeholder = {this.props.translation["registration-inpPlaceholder-login"]}
                         name = {'inp-login-enter'}
                     />
                     <Input 
                         type = {'text'}
-                        label = {'Input password'}
-                        placeholder = {'Password'}
+                        label = {this.props.translation["registration-inpLable-pass"]}
+                        placeholder = {this.props.translation["registration-inpPlaceholder-pass"]}
                         name = {'inp-password-enter'}
                     />
                     <button 
@@ -46,7 +46,7 @@ class Registration extends Component{
                             await this.submitHandler(ev, this.props);
                             if (this.props.isLogin) this.props.history.push('/movies/');                            
                     }}>
-                        Send data
+                        {this.props.translation["registration-btn"]}
                     </button>                        
                 </form>
             </div>        

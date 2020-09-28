@@ -13,6 +13,7 @@ import {
         CHOOSE_ACTOR,
         EDIT_MOVIE,
         LOAD_MOVIES,
+        CHOOSE_LANG,
 
 } from './actionTypes.js';
 
@@ -96,7 +97,7 @@ export function changeLikes (moviesList){
 export function chooseMovie(chosenMovie){
     return {
         type: CHOOSE_MOVIE,
-        chosenMovie
+        chosenMovie,
     }
 }
 
@@ -115,10 +116,16 @@ export function chooseActor(actor) {
 }
 
 export function editMovie(chosenMovie, moviesList){
-    console.log(moviesList)
     return{
         type: EDIT_MOVIE,
         moviesList,
         chosenMovie,
+    }
+}
+
+export function langHandler(language){
+    return{
+        type: CHOOSE_LANG,
+        language,
     }
 }
